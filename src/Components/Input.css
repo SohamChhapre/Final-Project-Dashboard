@@ -1,0 +1,48 @@
+.filelabel {
+    width: 120px;
+    border: 2px dashed grey;
+    border-radius: 5px;
+    display: block;
+    padding: 5px;
+    transition: border 300ms ease;
+    cursor: pointer;
+    text-align: center;
+    margin: 0;
+}
+.filelabel i {
+    display: block;
+    font-size: 30px;
+    padding-bottom: 5px;
+}
+.filelabel i,
+.filelabel .title {
+  color: grey;
+  transition: 200ms color;
+}
+.filelabel:hover {
+  border: 2px solid #1665c4;
+}
+.filelabel:hover i,
+.filelabel:hover .title {
+  color: #1665c4;
+}
+#FileInput{
+    display:none;
+}
+
+.text-heading{
+    /* background-color: aliceblue; */
+    margin:12px;
+    padding: 5px 10px 10px 10px;
+    text-align: center;
+}
+.active-head{
+    background-color: #fef4e3;
+    border-radius: 30%;
+    padding: 4px 70px;
+}
+.passive-head{
+    background-color: lavender;
+    border-radius: 30%;
+    padding: 4px 70px;
+}
