@@ -19,7 +19,7 @@ const Login=({setToken,setAuth})=>{
   //const [token,setToken]=useState({});
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+  const [errMessage,setErrMessage]=useState("");
 
   function validateForm() {
       return email.length > 0 && password.length > 0;
@@ -40,6 +40,9 @@ const Login=({setToken,setAuth})=>{
           //console.log("lol");
           setToken({'email':email,'password':password,'username':res.data.username});
           setAuth(true);
+        }
+        else{
+          setErrMessage(res.data.msg);
         }
         
       }).catch((err)=>{
@@ -81,6 +84,8 @@ const Login=({setToken,setAuth})=>{
           />
         </Form.Group>
         <div>
+        {errMessage && <div style={{color:"red",textAlign:"center",margin:"10px"}}>{errMessage}</div>}
+
         <Button block size="lg" type="submit" disabled={!validateForm()}>
           Login
         </Button>

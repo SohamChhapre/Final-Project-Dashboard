@@ -24,3 +24,9 @@
       bottom:10px;
 
   }
+
+  @media screen and (max-width: 1100px) {
+    .sidebar-main{
+        display: none;
+    }
+  }

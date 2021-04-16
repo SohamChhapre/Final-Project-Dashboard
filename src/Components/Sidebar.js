@@ -32,10 +32,12 @@ const Sidebar=()=>{
               Audio
             </li>
             </NavLink>
+            <NavLink to="/help">
             <li class="help-fixed">
                 <div className="bg-circle" ><img src={help_icon}/></div>
               Help
             </li>
+            </NavLink>
         </div> 
         </div>
 

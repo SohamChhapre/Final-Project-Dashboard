@@ -16,7 +16,7 @@ const AudioDash=()=>{
   const [status,setStatus]=useState(0);
   const [isResponse,setIsResponse]=useState(0);
   const [processing,setProcessing]=useState(0);
-  const [intarray,setIntarray]=useState([[[]]])
+  const [errMessage,setErrMessage]=useState("");
   const [intervals,setIntervals]=useState({"0":[[37.7,49.22]],"1":[[25.88,37.7]]});
   const [transcript,setTranscript]=useState({"0":["the end of the two weeks she grew tired of waiting and the day is so very long that I doing not without some so"],"1":["100 police traffic is going right and find the profit in jogging everything"]});
   const [chartdata,setChartdata]=useState([
@@ -137,8 +137,16 @@ const AudioDash=()=>{
     Axios.post(`${URL}/uploadAudio`,data,options).then((res) => {
       console.log(res);
       console.log(res.data);
+
       // const resdata=JSON.stringify(res.data)
+      
       const resdata=res.data
+      if(resdata.flag){
+        setErrMessage(resdata.msg);
+        setProcessing(2);
+        setStatus(0);
+      }
+      else{
       const intervalarr=[]
       console.log(resdata);
       
@@ -157,6 +165,7 @@ const AudioDash=()=>{
       
       setIsResponse(1);
         setProcessing(2);
+    }
     }).catch((err) => {
       console.log(err);
     });
@@ -171,10 +180,10 @@ const AudioDash=()=>{
       <>
         <div className="row mx-0">
         <Sidebar/>
-      <div className="col-lg-11 col-md-6 col-sm-12" style={{height:"calc(100vh - 53px)" ,overflowY:"scroll"}}>
+      <div className="col-lg-11 col-md-11 col-sm-12" style={{height:"calc(100vh - 53px)" ,overflowY:"scroll"}}>
 
       <div className="row mx-0 mb-3" >
-      <div className="col-lg-4 col-md-4 col-sm-6"> 
+      <div className="col-lg-12 col-md-12 col-sm-12"> 
       <h5 className="text-heading">
         <span style={{padding:"4px 70px",backgroundColor: active==0?"#fef4e3":"aliceblue",borderRadius:"30%",cursor:"pointer"}} onClick={()=>setActive(0)}>Upload File</span>
       </h5>
@@ -194,11 +203,13 @@ const AudioDash=()=>{
         <span class="title">
           Add File
         </span>
-        <input  type="file" class="FileUpload1" id="FileInput" name="booking_attachment" onChange={(e)=>{setFile(e.target.files[0]);console.log(e.target.files)}} type="file"/>
+        <input  type="file" class="FileUpload1" id="FileInput" name="booking_attachment" onChange={(e)=>{setFile(e.target.files[0]);setErrMessage("");setStatus(0);console.log(e.target.files)}} type="file"/>
         </label>
 
         <br />
         {file && file.name && <div style={{textAlign:"center"}}><span style={{padding:"3px 20px", backgroundColor:"lightgreen",borderRadius:"10px"}}>{file.name}</span></div>}
+        {errMessage && <div style={{color:"red",textAlign:"center",margin:"10px"}}>{errMessage}</div>}
+
             <div style={{"alignContent":"center"}}>
             <div style={{width:"200px"}}>
           {status>0 && status<100 && <div style={{}}><Progress  type="" percent={status}   theme={
@@ -244,11 +255,11 @@ const AudioDash=()=>{
       </form>
       { processing==1 && status==100 &&         <div class="mx-auto text-center mt-5 pt-5">
         <img src={rot_spinner} height="160px" />
-        <span style={{color:"aqua",fontSize:"32px"}}><i>Processing...</i></span>
+        <span style={{color:"aqua",fontSize:"26px"}}><i>Processing...</i></span>
         </div>
         }
   { isResponse==1 && processing==2 &&
-      <div className="row mt-5">
+      <div className="row mt-5 pt-5">
         <div className="col-lg-12 col-md-12 text-center" >
           
           <h5 className="text-heading">

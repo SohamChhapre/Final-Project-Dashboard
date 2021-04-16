@@ -17,6 +17,7 @@ const VideoDash=()=>{
   const [reconstruction,setReconstruction]=useState([[]]);
   const [isResponse,setIsResponse]=useState(0);
   const [processing,setProcessing]=useState(0);
+  const [errMessage,setErrMessage]=useState("");
   useEffect(()=>{
 
   },[])
@@ -63,10 +64,18 @@ const VideoDash=()=>{
     setProcessing(1);
     Axios.post(`${URL}/uploadVideo`,data,options).then((res) => {
       console.log(res);
+      if(res.data.flag)
+      {
+        setErrMessage(res.data.msg);
+        setProcessing(2);
+        setStatus(0);
+      }
+      else{
       console.log(res.data.reconstruction);
       setIsResponse(1);
       setReconstruction(res.data.reconstruction);
       setProcessing(2);
+      }
     }).catch((err) => {
       console.log(err);
     });
@@ -81,10 +90,10 @@ const VideoDash=()=>{
       <>
         <div className="row mx-0">
         <Sidebar/>
-      <div className="col-lg-11 col-md-6 col-sm-12" style={{height:"calc(100vh - 53px)" ,overflowY:"scroll"}}>>
+      <div className="col-lg-11 col-md-11 col-sm-12" style={{height:"calc(100vh - 53px)" ,overflowY:"scroll"}}>
 
       <div className="row mx-0 mb-3" >
-      <div className="col-lg-4 col-md-4 col-sm-6"> 
+      <div className="col-lg-12 col-md-12 col-sm-12"> 
       <h5 className="text-heading">
         <span style={{padding:"4px 70px",backgroundColor: active==0?"#fef4e3":"aliceblue",borderRadius:"30%",cursor:"pointer"}} onClick={()=>setActive(0)}>Upload File</span>
       </h5>
@@ -104,11 +113,13 @@ const VideoDash=()=>{
         <span class="title">
           Add File
         </span>
-        <input  type="file" class="FileUpload1" id="FileInput" name="booking_attachment" onChange={(e)=>{setFile(e.target.files[0]);console.log(e.target.files)}} type="file"/>
+        <input  type="file" class="FileUpload1" id="FileInput" name="booking_attachment" onChange={(e)=>{setFile(e.target.files[0]);setErrMessage("");console.log(e.target.files)}} type="file"/>
         </label>
 
         <br />
         {file && file.name && <div style={{textAlign:"center"}}><span style={{padding:"3px 20px", backgroundColor:"lightgreen",borderRadius:"10px"}}>{file.name}</span></div>}
+        {errMessage && <div style={{color:"red",textAlign:"center",margin:"10px"}}>{errMessage}</div>}
+
             <div style={{"alignContent":"center"}}>
             <div style={{width:"200px"}}>
           {status>0 && status<100 && <div style={{}}><Progress  type="" percent={status}   theme={
@@ -160,8 +171,8 @@ const VideoDash=()=>{
         }
 
         {isResponse===1 &&
-      <div className="row mt-5">
-        <div className="col-lg-4 col-md-4 text-center" >
+      <div className="row mt-5 pt-5">
+        <div className="col-lg-12 col-md-12 col-sm-12 text-center" >
           
           <h5 className="text-heading">
           <span style={{padding:"4px 70px",backgroundColor:"beige",borderRadius:"30%",cursor:"pointer"}} > Video Anamoly </span>

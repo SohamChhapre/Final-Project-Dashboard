@@ -23,6 +23,7 @@ const TextDash=()=>{
   const [processing,setProcessing]=useState(0);
   const [incoming,setIncoming]=useState({});
   const [check_box,setCheckbox]=useState(0);
+  const [errMessage,setErrMessage]=useState('');
   useEffect(()=>{
     setData({"file":"","url":"","text":""})
   },[])
@@ -150,6 +151,7 @@ const downloadReport=()=> {
       setStatus(0);
       setProcessing(2);
       console.log(incoming)
+      setErrMessage(res.data.msg);
       setTimeout(()=>{
         setIncoming({...res.data});
         
@@ -192,23 +194,23 @@ const downloadReport=()=> {
       <div>
       <div className="row mx-0">
         <Sidebar/>
-      <div className="col-lg-11 col-md-6 col-sm-12" style={{height:"calc(100vh - 53px)" ,overflowY:"scroll"}}>
+      <div className="col-lg-11 col-md-11 col-sm-12" style={{height:"calc(100vh - 53px)" ,overflowY:"scroll"}}>
 
       <div className="row mx-0 mb-3" >
       <div className="col-lg-4 col-md-4 col-sm-6"> 
       <h5 className="text-heading">
-        <span style={{padding:"4px 70px",backgroundColor: active==0?"#fef4e3":"aliceblue",borderRadius:"30%",cursor:"pointer"}} onClick={()=>setActive(0)}>Upload File</span>
+        <span style={{padding:"4px 70px",backgroundColor: active==0?"#fef4e3":"aliceblue",borderRadius:"30%",cursor:"pointer"}} onClick={()=>{setActive(0);setErrMessage("")}}>Upload File</span>
       </h5>
       </div>
       <div className="col-lg-4 col-md-4 col-sm-6">
       <h5 className="text-heading">
-          <span style={{padding:"4px 70px",backgroundColor:active==1?"#fef4e3":"aliceblue",borderRadius:"30%",cursor:"pointer"}} onClick={()=>setActive(1)}>Url</span>
+          <span style={{padding:"4px 70px",backgroundColor:active==1?"#fef4e3":"aliceblue",borderRadius:"30%",cursor:"pointer"}} onClick={()=>{setActive(1);setErrMessage("")}}>Url</span>
         </h5>
         
         </div>
         <div className="col-lg-4 col-md-4 col-sm-6">
       <h5 className="text-heading">
-          <span style={{padding:"4px 70px",backgroundColor:active==2?"#fef4e3":"aliceblue",borderRadius:"30%",cursor:"pointer"}} onClick={()=>setActive(2)}>Text</span>
+          <span style={{padding:"4px 70px",backgroundColor:active==2?"#fef4e3":"aliceblue",borderRadius:"30%",cursor:"pointer"}} onClick={()=>{setActive(2);setErrMessage("")}}>Text</span>
         </h5>
         </div>
       
@@ -225,11 +227,16 @@ const downloadReport=()=> {
         <span class="title">
           Add File
         </span>
-        <input  type="file" class="FileUpload1" id="FileInput" name="booking_attachment" onChange={(e)=>{setFile(e.target.files[0]);console.log(e.target.files)}} type="file"/>
+        <input  type="file" class="FileUpload1" id="FileInput" name="booking_attachment" onChange={(e)=>{setFile(e.target.files[0]);console.log(e.target.files);setErrMessage("")}} type="file"/>
         
         <br/>
         </label>
         <div class = "mx-auto title" style={{display: 'flex', justifyContent: 'center'}}>
+        
+        </div>
+        <br />
+        {file && file.name && <div style={{textAlign:"center"}}><span style={{padding:"3px 20px", backgroundColor:"lightgreen",borderRadius:"10px"}}>{file.name}</span></div>}
+          <div className="text-center">
         <span class="title">
           Scanned File?
         </span>
@@ -241,8 +248,7 @@ const downloadReport=()=> {
           inputProps={{ 'aria-label': 'primary checkbox' }}
         /> 
         </div>
-        <br />
-        {file && file.name && <div style={{textAlign:"center"}}><span style={{padding:"3px 20px", backgroundColor:"lightgreen",borderRadius:"10px"}}>{file.name}</span></div>}
+            
             <div style={{"alignContent":"center"}}>
             <div style={{width:"200px"}}>
           {status>0 && status<100 && <div style={{}}><Progress  type="" percent={status}   theme={
@@ -282,18 +288,18 @@ const downloadReport=()=> {
         }
     {
       active==1 &&  <div className="mx-auto"  style={{width:"30vw"}}>
-        <input class="form-control" type="text" onChange={(e)=>{
+        <input class="form-control" type="text" placeholder="Enter URl" onChange={(e)=>{
           setData({...data,"url":e.target.value})
         }}/>
       </div>
     }
 
         {active==2 &&  <div class="mx-auto" style={{width:"50vw"}}>
-  <textarea class="form-control" rows="5" id="comment" onChange={(e)=>{
+  <textarea class="form-control" rows="5" id="comment" placeholder="Enter Text" onChange={(e)=>{
     setData({...data,"text":e.target.value})
   }}></textarea>
 </div> }
-      
+      {errMessage && <div style={{color:"red",textAlign:"center",margin:"10px"}}>{errMessage}</div>}
           <div className="mt-5 mr-4" style={{textAlign:"end"}}>
               <button className="btn btn-primary " >Submit</button>
             </div>
