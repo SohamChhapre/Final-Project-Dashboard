@@ -11,6 +11,7 @@ import Chart from "react-google-charts";
 import spinner from '../../Assets/icons/text_spinner.gif';
 import save_icon from '../../Assets/icons/save.png';
 import {URL} from '../Config';
+import Switch from '@material-ui/core/Switch';
 
 
 
@@ -21,6 +22,7 @@ const TextDash=()=>{
   const [status,setStatus]=useState(0);
   const [processing,setProcessing]=useState(0);
   const [incoming,setIncoming]=useState({});
+  const [check_box,setCheckbox]=useState(0);
   useEffect(()=>{
     setData({"file":"","url":"","text":""})
   },[])
@@ -116,18 +118,22 @@ const downloadReport=()=> {
       dataF.append('filename', file.name);
       dataF.append('url','');
       dataF.append('text','');
+      dataF.append('scanned',check_box);
+      console.log(dataF);
     }
     else if(active===1){
       dataF.append('file', '');
       dataF.append('filename', '');
       dataF.append('url',data.url);
       dataF.append('text','');
+      dataF.append('scanned',check_box);
     }
     else{
       dataF.append('file', '');
       dataF.append('filename', '');
       dataF.append('url','');
       dataF.append('text',data.text);
+      dataF.append('scanned',check_box);
     }
       const options = {
       onUploadProgress:(ProgressEvent)=>{
@@ -163,6 +169,20 @@ const downloadReport=()=> {
     //     console.log("inside json");
     //     // this.setState({ imageURL: `http://localhost:5000/${body.file}` });
     //   });
+  }
+    const handleChange=async (ev) =>{
+      ev.preventDefault();
+      if(check_box==0)
+      {
+        console.log("on");
+        setCheckbox(1);
+      }
+      else
+      {
+        setCheckbox(0);
+        console.log("off");
+      }
+
     // });
   }
   
@@ -206,8 +226,21 @@ const downloadReport=()=> {
           Add File
         </span>
         <input  type="file" class="FileUpload1" id="FileInput" name="booking_attachment" onChange={(e)=>{setFile(e.target.files[0]);console.log(e.target.files)}} type="file"/>
+        
+        <br/>
         </label>
-
+        <div class = "mx-auto title" style={{display: 'flex', justifyContent: 'center'}}>
+        <span class="title">
+          Scanned File?
+        </span>
+        <Switch
+          checked={check_box}
+          onChange={handleChange}
+          color="primary"
+          name="scanned"
+          inputProps={{ 'aria-label': 'primary checkbox' }}
+        /> 
+        </div>
         <br />
         {file && file.name && <div style={{textAlign:"center"}}><span style={{padding:"3px 20px", backgroundColor:"lightgreen",borderRadius:"10px"}}>{file.name}</span></div>}
             <div style={{"alignContent":"center"}}>
