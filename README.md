@@ -2,6 +2,33 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Installation Guide
+
+Know Your Data(UI) requires [node](https://nodejs.org/en/) v 10+ to run.
+
+Clone Repo in local machine
+```sh
+git clone https://github.com/SohamChhapre/Final-Project-Dashboard.git
+```
+
+Install Dependencies
+```sh
+npm install
+```
+
+Run using:
+```sh
+npm start
+```
+
+Running at:
+```sh
+http://localhost:3000
+```
+
+
+
+
 ## Available Scripts
 
 In the project directory, you can run:
