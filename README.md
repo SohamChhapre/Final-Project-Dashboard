@@ -5,6 +5,23 @@
 ![Home Screen](https://res.cloudinary.com/read-it/image/upload/v1628665384/bgg41xvmdxu45hab4uiy.jpg)
 
 
+![Text ](https://res.cloudinary.com/read-it/image/upload/v1628665725/bxvmvzi7spiwl8ztcusg.jpg)
+
+![Text ](https://res.cloudinary.com/read-it/image/upload/v1628665379/soduw9yhxgfytp4xafqv.jpg)
+
+![Text ](https://res.cloudinary.com/read-it/image/upload/v1628665437/lep0svwhkqcwj5vbjodk.jpg)
+
+![Text ](https://res.cloudinary.com/read-it/image/upload/v1628665411/psxwl4uuwfou7n6cmsah.jpg)
+
+![video ](https://res.cloudinary.com/read-it/image/upload/v1628665392/k8y3f0xx34xovawi8z96.jpg)
+
+![Audio](https://res.cloudinary.com/read-it/image/upload/v1628665986/wgf1d4iakj6fwopuaqfw.jpg)
+
+![Audio](https://res.cloudinary.com/read-it/image/upload/v1628665439/lmhiwpyughx1n74cdqyh.jpg)
+
+
+
+
 
 
 # Getting Started with Create React App
