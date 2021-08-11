@@ -1,5 +1,9 @@
 # Some Snippets of Project:
-![alt text](https://drive.google.com/drive/folders/1TmLn3xjZMWzS6o0DkJ66iEgD1FDk-J-6)
+![Signup Screen](https://res.cloudinary.com/read-it/image/upload/v1628665442/ewn0zoh9r21qcucqfu3v.jpg)
+
+
+![Home Screen](https://res.cloudinary.com/read-it/image/upload/v1628665384/bgg41xvmdxu45hab4uiy.jpg)
+
 
 
 
